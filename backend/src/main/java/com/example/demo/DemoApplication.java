@@ -1,8 +1,13 @@
 package com.example.demo;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import jakarta.annotation.PostConstruct;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,11 +18,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * This is a demo application that provides a RESTful API for a simple ToDo list
- * without persistence.
+ * with file persistence.
  * The endpoint "/" returns a list of tasks.
  * The endpoint "/tasks" adds a new unique task.
  * The endpoint "/delete" suppresses a task from the list.
@@ -39,6 +45,40 @@ public class DemoApplication {
 	}
 
 	private List<Task> tasks = new ArrayList<>();
+	private final ObjectMapper mapper = new ObjectMapper();
+	private final Path storageFile = Path.of("data", "tasks.json");
+
+	@PostConstruct
+	public void loadTasks() {
+		if (!Files.exists(storageFile)) {
+			System.out.println("No persistent task file found at " + storageFile + ". Starting with empty task-list.");
+			return;
+		}
+
+		try {
+			tasks = mapper.readValue(storageFile.toFile(), new TypeReference<List<Task>>() {
+			});
+			System.out.println("Loaded " + tasks.size() + " tasks from " + storageFile + ".");
+		} catch (IOException e) {
+			System.out.println("Could not load tasks from " + storageFile + ". Starting with empty task-list.");
+			e.printStackTrace();
+			tasks = new ArrayList<>();
+		}
+	}
+
+	private void saveTasks() {
+		try {
+			Path parent = storageFile.getParent();
+			if (parent != null) {
+				Files.createDirectories(parent);
+			}
+			mapper.writerWithDefaultPrettyPrinter().writeValue(storageFile.toFile(), tasks);
+			System.out.println("Saved " + tasks.size() + " tasks to " + storageFile + ".");
+		} catch (IOException e) {
+			System.out.println("Could not save tasks to " + storageFile + ".");
+			e.printStackTrace();
+		}
+	}
 
 	@CrossOrigin
 	@GetMapping("/")
@@ -58,7 +98,6 @@ public class DemoApplication {
 	@PostMapping("/tasks")
 	public String addTask(@RequestBody String taskdescription) {
 		System.out.println("API EP '/tasks': '" + taskdescription + "'");
-		ObjectMapper mapper = new ObjectMapper();
 		try {
 			Task task;
 			task = mapper.readValue(taskdescription, Task.class);
@@ -70,6 +109,7 @@ public class DemoApplication {
 			}
 			System.out.println("...adding task: '" + task.getTaskdescription() + "'");
 			tasks.add(task);
+			saveTasks();
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -80,7 +120,6 @@ public class DemoApplication {
 	@PostMapping("/delete")
 	public String delTask(@RequestBody String taskdescription) {
 		System.out.println("API EP '/delete': '" + taskdescription + "'");
-		ObjectMapper mapper = new ObjectMapper();
 		try {
 			Task task;
 			task = mapper.readValue(taskdescription, Task.class);
@@ -90,6 +129,7 @@ public class DemoApplication {
 				if (t.getTaskdescription().equals(task.getTaskdescription())) {
 					System.out.println("...deleting task: '" + task.getTaskdescription() + "'");
 					it.remove();
+					saveTasks();
 					return "redirect:/";
 				}
 			}

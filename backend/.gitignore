@@ -1,4 +1,5 @@
 HELP.md
+.m2/
 target/
 bin/
 !.mvn/wrapper/maven-wrapper.jar
@@ -35,3 +36,4 @@ build/
 target
 
 *.class
+data/

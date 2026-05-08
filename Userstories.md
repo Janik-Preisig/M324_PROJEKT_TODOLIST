@@ -50,5 +50,9 @@ Als Benutzer möchte ich meine To-do-Liste dauerhaft speichern können, damit me
 
 - Tasks werden im Backend dauerhaft gespeichert.
 - Nach einem Neustart des Backend-Servers sind die vorherigen Tasks weiterhin vorhanden.
+<<<<<<< HEAD
 - Die Speicherung erfolgt in einer Datenbank oder Datei.
+=======
+- Die Speicherung erfolgt in einer Datei.
+>>>>>>> a8eb15f (US 5)
 - Tasks können nach dem Neustart wieder geladen und angezeigt werden.
