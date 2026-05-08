@@ -1,46 +1,44 @@
 # User Stories
 
-## 1. Tasks anzeigen
+## 1. Task bearbeiten
 
-Als Benutzer möchte ich alle vorhandenen Tasks sehen, damit ich weiss, welche Aufgaben aktuell offen sind.
-
-**Akzeptanzkriterien:**
-
-- Beim Öffnen des Frontends werden die vorhandenen Tasks vom Backend geladen.
-- Jeder Task wird in einer Liste angezeigt.
-- Jeder Task wird mit seiner Beschreibung angezeigt.
-- Die Tasks werden fortlaufend nummeriert angezeigt.
-
-## 2. Neuen Task erfassen
-
-Als Benutzer möchte ich einen neuen Task erfassen, damit ich eine neue Aufgabe in meine To-do-Liste aufnehmen kann.
+Als Benutzer möchte ich einen bestehenden Task bearbeiten können, damit ich Schreibfehler oder geänderte Aufgaben korrigieren kann.
 
 **Akzeptanzkriterien:**
 
-- Es gibt ein Eingabefeld für die Task-Beschreibung.
-- Es gibt einen Button zum Absenden des neuen Tasks.
-- Nach dem Absenden wird der Task an das Backend gesendet.
-- Nach dem Speichern erscheint der neue Task in der Liste.
+- Jeder Task hat eine Bearbeiten-Funktion.
+- Nach dem Bearbeiten wird die neue Beschreibung gespeichert.
+- Die aktualisierte Beschreibung wird in der Liste angezeigt.
 
-## 3. Doppelte Tasks verhindern
+## 2. Task mit Fälligkeitsdatum erfassen
 
-Als Benutzer möchte ich, dass eine Task-Beschreibung nur einmal vorkommt, damit die Liste keine doppelten Einträge enthält.
-
-**Akzeptanzkriterien:**
-
-- Wenn ein Task mit derselben Beschreibung bereits existiert, wird kein zweiter gleicher Task gespeichert.
-- Die bestehende Task-Liste bleibt erhalten.
-- Die Task-Beschreibung dient als eindeutiger Wert für einen Task.
-
-## 4. Task als erledigt markieren
-
-Als Benutzer möchte ich einen Task als erledigt markieren können, damit erledigte Aufgaben aus der Liste verschwinden.
+Als Benutzer möchte ich einem Task ein Fälligkeitsdatum geben können, damit ich sehe, bis wann eine Aufgabe erledigt sein soll.
 
 **Akzeptanzkriterien:**
 
-- Jeder angezeigte Task hat einen Done-Button mit Haken.
-- Beim Klick auf den Done-Button wird der entsprechende Task an das Backend zum Löschen gesendet.
-- Nach dem Löschen wird der Task nicht mehr in der Liste angezeigt.
+- Beim Erstellen eines Tasks kann ein Datum ausgewählt werden.
+- Das Fälligkeitsdatum wird zusammen mit dem Task gespeichert.
+- Das Datum wird in der Task-Liste angezeigt.
+
+## 3. Task mit Priorität erfassen
+
+Als Benutzer möchte ich einem Task eine Priorität geben können, damit ich wichtige Aufgaben schneller erkenne.
+
+**Akzeptanzkriterien:**
+
+- Beim Erstellen eines Tasks kann eine Priorität ausgewählt werden.
+- Die Priorität wird zusammen mit dem Task gespeichert.
+- Die Priorität wird in der Task-Liste angezeigt.
+
+## 4. Tasks filtern
+
+Als Benutzer möchte ich meine Tasks filtern können, damit ich bestimmte Aufgaben schneller finde.
+
+**Akzeptanzkriterien:**
+
+- Es gibt eine Filtermöglichkeit für die Task-Liste.
+- Die Liste zeigt nur Tasks an, die zum Filter passen.
+- Der Filter kann wieder zurückgesetzt werden.
 
 ## 5. Tasks mit dauerhafter Speicherung verwalten
 
@@ -50,9 +48,5 @@ Als Benutzer möchte ich meine To-do-Liste dauerhaft speichern können, damit me
 
 - Tasks werden im Backend dauerhaft gespeichert.
 - Nach einem Neustart des Backend-Servers sind die vorherigen Tasks weiterhin vorhanden.
-<<<<<<< HEAD
-- Die Speicherung erfolgt in einer Datenbank oder Datei.
-=======
 - Die Speicherung erfolgt in einer Datei.
->>>>>>> a8eb15f (US 5)
 - Tasks können nach dem Neustart wieder geladen und angezeigt werden.
