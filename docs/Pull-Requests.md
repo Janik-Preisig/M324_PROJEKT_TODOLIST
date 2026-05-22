@@ -1,139 +1,137 @@
-# Pull-Request Dokumentation
+# Pull Request Dokumentation
 
 Stand: 22.05.2026
 
-## 1. Funktionsweise von Pull-Requests
+## Was ist ein Pull Request?
 
-Ein Pull-Request (PR) ist ein Vorschlag, Aenderungen aus einem Arbeitsbranch in
-einen Zielbranch zu uebernehmen. In GitLab heisst das gleiche Konzept meistens
-Merge-Request (MR). Die Idee bleibt gleich: Die Aenderungen werden nicht direkt
-auf `main` gemacht, sondern zuerst in einem eigenen Branch vorbereitet.
+Ein Pull Request ist eine Anfrage, Änderungen aus einem Branch in einen anderen
+Branch zu übernehmen. In unserem Projekt wird dafür ein Feature-Branch verwendet,
+der später in den `main`-Branch gemerged wird.
 
-Typischer Ablauf:
+Bei GitLab heisst das gleiche Prinzip meistens Merge Request. Die Bedeutung ist
+gleich: Änderungen werden zuerst separat vorbereitet und danach überprüft, bevor
+sie in den Hauptstand des Projekts übernommen werden.
 
-1. Aktuellen Stand von `main` holen.
-2. Neuen Branch fuer eine konkrete Aenderung erstellen.
-3. Code, Dokumentation oder Tests anpassen.
-4. Aenderungen lokal testen und committen.
-5. Branch auf GitHub pushen.
-6. Pull-Request von Arbeitsbranch nach `main` erstellen.
-7. Teammitglied prueft die Aenderungen im PR.
-8. Feedback einarbeiten, falls noetig.
-9. PR mergen, wenn die Aenderung korrekt ist.
-10. Lokalen `main` wieder aktualisieren.
+## Warum verwendet man Pull Requests?
 
-Ein PR zeigt die Unterschiede zwischen Arbeitsbranch und Zielbranch. Dadurch kann
-das Team den Code gezielt anschauen, Fragen stellen und Fehler finden, bevor die
-Aenderung Teil des Hauptstands wird.
+Pull Requests helfen dabei, Änderungen kontrolliert in ein Projekt zu übernehmen.
+Sie sind besonders nützlich, wenn mehrere Personen am gleichen Projekt arbeiten.
 
-## 2. Umsetzung in unserem Versionierungssystem
+- Änderungen werden überprüft, bevor sie in `main` kommen.
+- Andere Personen können Feedback geben.
+- Fehler werden früher erkannt.
+- Die Code-Qualität wird verbessert.
+- Der `main`-Branch bleibt stabiler.
+- Der Ablauf bleibt nachvollziehbar, weil Commits, Kommentare und Reviews im Pull Request sichtbar sind.
 
-Unser Projekt verwendet Git als Versionsverwaltung und GitHub als Plattform.
+## Vorbereitung
 
-Repository:
+Vor dem Erstellen eines Pull Requests wird zuerst ein eigener Branch erstellt.
+Dieser Branch enthält die Änderungen, die später in `main` übernommen werden
+sollen.
 
-- `FionnLaesser/M324_PROJEKT_TODOLIST`
-- Remote: `origin`
-- Hauptbranch: `main`
-- Beispielbranch fuer diese Aufgabe: `feature/pull-request-dokumentation`
+Wichtige Git-Befehle:
 
-Empfohlener Git-Ablauf im Terminal:
-
-```powershell
-git switch main
+```bash
+git checkout main
 git pull origin main
-git switch -c feature/kurze-beschreibung
-
-# Dateien bearbeiten
+git checkout -b feature/pull-request-dokumentation
 git status
-git add <dateien>
-git commit -m "Kurze Beschreibung der Aenderung"
-git push -u origin feature/kurze-beschreibung
+git add .
+git commit -m "Dokumentiere Pull-Request Ablauf"
+git push origin feature/pull-request-dokumentation
 ```
 
-Danach auf GitHub:
+In unserem Projekt wurde der Branch `feature/pull-request-dokumentation`
+verwendet. Die Änderungen wurden dort vorbereitet und anschliessend auf GitHub
+hochgeladen.
 
-1. Repository auf GitHub oeffnen.
-2. Den Hinweis "Compare & pull request" auswaehlen oder ueber "Pull requests" einen neuen PR erstellen.
-3. Als `base` den Branch `main` auswaehlen.
-4. Als `compare` den eigenen Arbeitsbranch auswaehlen.
-5. Titel und Beschreibung ausfuellen.
-6. Im Reiter "Files changed" pruefen, ob nur gewollte Dateien enthalten sind.
-7. Review durch ein anderes Teammitglied durchfuehren lassen.
-8. Kommentare beantworten oder Aenderungen nachbessern.
-9. PR mergen, wenn alles passt.
-10. Arbeitsbranch loeschen und lokal `main` aktualisieren.
+## Pull Request erstellen
 
-## 3. Durchgefuehrte Aenderungen am Projekt
+Nach dem Push des Feature-Branches kann auf GitHub ein Pull Request erstellt
+werden. Dabei wird ausgewählt, von welchem Branch in welchen Zielbranch gemerged
+werden soll.
 
-Fuer diese Aufgabe wurde ein eigener Branch erstellt und eine kleine
-Projektverbesserung umgesetzt. Damit ist im Pull-Request nicht nur Dokumentation,
-sondern auch eine echte Code-Aenderung sichtbar.
+Für dieses Projekt war die Auswahl:
 
-| Bereich | Datei | Aenderung |
+- Base-Branch: `main`
+- Compare-Branch: `feature/pull-request-dokumentation`
+
+Danach wurden ein Titel und eine Beschreibung ergänzt. Die Beschreibung sollte
+kurz erklären, was geändert wurde und warum diese Änderung gemacht wurde.
+
+![Formular zum Erstellen des Pull Requests](screenshots/pull-request/02_pr_erstellen_formular.png)
+
+## Pull Request überprüfen
+
+Nach dem Erstellen des Pull Requests zeigt GitHub an, ob die Änderungen gemerged
+werden können. Wichtig ist, dass keine Merge-Konflikte vorhanden sind.
+
+In unserem Fall zeigte GitHub den Status `Ready to merge`. Ausserdem wurde
+angezeigt, dass keine Konflikte mit dem Base-Branch vorhanden waren. Damit war
+der Pull Request technisch bereit für den Merge.
+
+![Geöffneter Pull Request mit Status ready to merge](screenshots/pull-request/03_pr_offen_ready_to_merge.png)
+
+## Pull Request mergen
+
+Wenn der Pull Request überprüft wurde und keine Konflikte vorhanden sind, kann er
+in den `main`-Branch gemerged werden. Dafür wird auf GitHub zuerst die Schaltfläche
+`Merge pull request` verwendet.
+
+Anschliessend muss der Merge nochmals bestätigt werden. Dieser Schritt verhindert,
+dass Änderungen versehentlich in `main` übernommen werden.
+
+![Confirm merge Schritt](screenshots/pull-request/04_pr_confirm_merge.png)
+
+Nach der Bestätigung zeigt GitHub an, dass der Pull Request erfolgreich gemerged
+wurde. Die Änderungen sind damit im `main`-Branch enthalten.
+
+![Pull Request erfolgreich gemerged](screenshots/pull-request/05_pr_erfolgreich_gemerged.png)
+
+## Nachweise mit Screenshots
+
+Die folgenden Screenshots dokumentieren den Ablauf des Pull Requests.
+
+| Datei | Zweck | Status |
 | --- | --- | --- |
-| Frontend | `frontend/src/App.jsx` | Zeigt eine Meldung, wenn keine Tasks vorhanden sind oder kein Task zum Filter passt. |
-| Frontend | `frontend/src/App.css` | Gestaltet die leere Listenmeldung passend zur bestehenden ToDo-Oberflaeche. |
-| Dokumentation | `docs/Pull-Requests.md` | Beschreibt PR-Funktionsweise, GitHub-Ablauf, Nachweise und Nutzen. |
+| `01_pr_problem_keine_rechte.png` | Zeigt, dass zuerst kein Pull Request ins WISS-GB Repository erstellt werden konnte, weil nur Collaborators berechtigt waren. | TODO: Screenshot `01_pr_problem_keine_rechte.png` einfügen |
+| `02_pr_erstellen_formular.png` | Zeigt das Formular zum Erstellen des Pull Requests mit Titel und Beschreibung. | Vorhanden |
+| `03_pr_offen_ready_to_merge.png` | Zeigt den geöffneten Pull Request mit Status ready to merge und ohne Konflikte. | Vorhanden |
+| `04_pr_confirm_merge.png` | Zeigt den Schritt Confirm merge. | Vorhanden |
+| `05_pr_erfolgreich_gemerged.png` | Zeigt, dass der Pull Request erfolgreich in `main` gemerged wurde. | Vorhanden |
 
-Nachweis des Arbeitsablaufs:
+TODO: Screenshot `01_pr_problem_keine_rechte.png` einfügen, sobald der passende
+Screenshot vorhanden ist.
 
-| Schritt | Ergebnis |
-| --- | --- |
-| Branch erstellt | `feature/pull-request-dokumentation` |
-| Zielbranch | `main` |
-| Pull-Request | Erstellen ueber `https://github.com/FionnLaesser/M324_PROJEKT_TODOLIST/pull/new/feature/pull-request-dokumentation` |
-| Review | Im Team durchfuehren: Code lesen, App starten, Fragen/Kommentare im PR notieren. |
-| Merge | Nach erfolgreichem Review in `main` mergen. |
+## Nutzen von Pull Requests
 
-## 4. Schritte fuer einen erfolgreichen Pull-Request
+Pull Requests erleichtern die Zusammenarbeit, weil Änderungen nicht direkt in den
+`main`-Branch geschrieben werden. Stattdessen werden sie zuerst in einem eigenen
+Branch gesammelt und danach überprüft.
 
-Diese Checkliste kann fuer weitere Team-Aenderungen verwendet werden:
+Ein grosser Vorteil ist, dass andere Personen den Code anschauen können, bevor er
+übernommen wird. Dadurch können Fehler, unklare Stellen oder fehlende Tests früher
+gefunden werden. Auch die Beschreibung im Pull Request hilft, die Änderung später
+nachzuvollziehen.
 
-1. **Branch aktuell halten:** Vor Beginn `git pull origin main` ausfuehren.
-2. **Kleinen Branch erstellen:** Pro Aufgabe nur eine fachliche Aenderung umsetzen.
-3. **Sprechenden Namen waehlen:** Zum Beispiel `feature/filter-reset` oder `docs/pr-dokumentation`.
-4. **Aenderung testen:** App starten oder passende Tests ausfuehren.
-5. **Diff kontrollieren:** Mit `git diff` oder GitHub "Files changed" pruefen.
-6. **Commit erstellen:** Kurze, klare Commit-Message schreiben.
-7. **PR-Beschreibung ausfuellen:** Was wurde geaendert, warum, wie wurde getestet?
-8. **Review einholen:** Mindestens eine andere Person schaut die Aenderung an.
-9. **Feedback einarbeiten:** Neue Commits in denselben Branch pushen.
-10. **Mergen:** Erst wenn Review und Tests passen.
-11. **Branch aufraeumen:** Remote-Branch loeschen und lokal `main` aktualisieren.
+Pull Requests können aber auch zusätzlichen Aufwand verursachen. Für sehr kleine
+Änderungen dauert der Ablauf manchmal länger als ein direkter Commit. Ausserdem
+kann ein Pull Request blockiert werden, wenn Reviews fehlen oder wenn es
+Merge-Konflikte gibt.
 
-Sinnvolle Notizen in einem PR:
+Trotzdem ist der Nutzen für ein Teamprojekt grösser als der Aufwand. Pull Requests
+verbessern die Code-Qualität, machen Änderungen transparenter und schützen den
+`main`-Branch vor fehlerhaften oder unvollständigen Änderungen.
 
-- Welche Dateien wurden geaendert?
-- Welche Funktion wurde verbessert?
-- Wie wurde getestet?
-- Gibt es bekannte Einschraenkungen?
-- Gibt es offene Fragen fuer das Review?
+## Fazit
 
-## 5. Nutzen von Pull-Requests
+In diesem Projekt wurde ein Feature-Branch erstellt, die Dokumentation zu Pull
+Requests ergänzt und der Branch über einen Pull Request in `main` gemerged. Die
+Screenshots zeigen die wichtigsten Schritte: Pull Request erstellen, Status prüfen,
+Merge bestätigen und erfolgreichen Merge kontrollieren.
 
-Pull-Requests erleichtern die Arbeit, weil Aenderungen sichtbar und nachvollziehbar
-werden. Das Team sieht genau, was geaendert wurde, kann Kommentare direkt an die
-betroffene Code-Zeile schreiben und muss Aenderungen nicht muendlich oder in
-Chat-Nachrichten zusammensuchen.
-
-Pull-Requests verbessern die Code-Qualitaet besonders durch Reviews. Eine zweite
-Person erkennt oft Dinge, die der Autor uebersehen hat: unklare Namen, fehlende
-Tests, unvollstaendige Fehlerbehandlung oder Aenderungen an falschen Dateien.
-Ausserdem bleibt `main` stabiler, weil neue Arbeit zuerst in Branches landet.
-
-Pull-Requests koennen die Arbeit aber auch erschweren. Bei sehr kleinen Aufgaben
-fuehlen sie sich manchmal wie Zusatzaufwand an. Ausserdem kann Arbeit blockiert
-werden, wenn Reviews lange dauern. Auch Merge-Konflikte koennen entstehen, wenn
-mehrere Personen gleichzeitig an denselben Dateien arbeiten.
-
-Unsere Einschaetzung: Fuer ein Teamprojekt lohnt sich der Aufwand. Die Aenderungen
-werden sauber dokumentiert, die Zusammenarbeit wird transparenter und die
-Wahrscheinlichkeit sinkt, dass fehlerhafter Code unbemerkt in `main` landet.
-Wichtig ist, dass PRs klein bleiben und Reviews wirklich sorgfaeltig gemacht
-werden.
-
-## 6. Quellen
+## Quellen
 
 - GitHub Docs: About pull requests, https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
 - GitHub Docs: Creating a pull request, https://docs.github.com/en/articles/creating-a-pull-request
