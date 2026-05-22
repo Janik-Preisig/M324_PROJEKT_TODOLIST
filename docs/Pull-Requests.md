@@ -82,7 +82,7 @@ Nachweis des Arbeitsablaufs:
 | --- | --- |
 | Branch erstellt | `codex/pull-request-dokumentation` |
 | Zielbranch | `main` |
-| Pull-Request | Wird nach dem Push auf GitHub erstellt. |
+| Pull-Request | Erstellen ueber `https://github.com/FionnLaesser/M324_PROJEKT_TODOLIST/pull/new/codex/pull-request-dokumentation` |
 | Review | Im Team durchfuehren: Code lesen, App starten, Fragen/Kommentare im PR notieren. |
 | Merge | Nach erfolgreichem Review in `main` mergen. |
 
